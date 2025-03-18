@@ -1,0 +1,28 @@
+version: "3"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      
+  kafka:
+    image: wurstmeister/kafka # Use non-official Kafka image to avoid KRaft setting to use Zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 # Replication for Offset internal topic for restart
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1  # Kafka transaction replication factor
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 2000 # Waiting time for initial launch for consumers for rebalancing
+      KAFKA_NUM_PARTITIONS: 3 # Assign topic to separate partitions
+      KAFKA_CREATE_TOPICS: "practice_topic:1:1" # For example topics
+      
+      
+    depends_on:
+      - zookeeper

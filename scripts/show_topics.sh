@@ -1,0 +1,1 @@
+ docker exec -it $(docker ps --filter  "ancestor=wurstmeister/kafka" --format {{.ID}}) /opt/kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
