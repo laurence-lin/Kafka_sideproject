@@ -3,6 +3,7 @@ from kafka import KafkaConsumer
 from common.config import KAFKA_BOOTSTRAP_SERVERS, KAFKA_TOPIC, KAFKA_CONSUMER_GROUP
 from common.models import UserActivity
 from consumer.data_processor import process_user_activity
+import json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,7 +13,7 @@ def create_consumer():
         KAFKA_TOPIC,
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
         group_id=KAFKA_CONSUMER_GROUP,
-        auto_offset_reset='earliest', # From all history messages
+        auto_offset_reset='earliest', # Consumer read from earliest avaiable offset, since this is develop first launch
         value_deserializer=lambda x: x.decode('utf-8')
     )
 

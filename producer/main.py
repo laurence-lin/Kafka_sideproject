@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def create_producer():
     return KafkaProducer(
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
-        value_serializer=lambda x: x.encode('utf-8')
+        value_serializer=lambda x: x.encode('utf-8') # Convert to bytes for Kafka communication
     )
 
 def run_producer():
@@ -19,7 +19,7 @@ def run_producer():
     counter = 0 # Number of generated messages from producer
     
     try:
-        while MAX_RECORDS is None or counter < MAX_RECORDS:
+        while MAX_RECORDS is None or counter < MAX_RECORDS: # In Production (MAX_RECORD = None), while loop kept running
             # Generate user action data
             activity = generate_user_activity()
             

@@ -1,13 +1,11 @@
 from common.models import UserActivity
 
 def process_user_activity(activity: UserActivity):
-    """处理用户行为数据"""
+    """
+    Parse and process reteieved UserActivity model's data and return.
+    In production, we may make further ETL tasks and stored process data.
     
-    # 实际应用中，这里可以做更复杂的处理，如:
-    # - 统计用户活跃度
-    # - 分析用户行为路径
-    # - 存储到数据库
-    # - 实时计算用户指标
+    """
     
     result = {
         "user_id": activity.user_id,
