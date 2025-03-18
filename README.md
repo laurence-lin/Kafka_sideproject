@@ -19,7 +19,7 @@ python3 -m pip install -r requirements.txt
 
 #### 2. Producer & Consumer Launch:
 
-Consumer: first launch consumer
+Consumer: 
 python -m consumer.main
 
 Producer:
